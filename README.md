@@ -6,13 +6,9 @@ This is a simple Nestjs application with a simple CRUD API for managing cats.
 
 ```bash
 $ git clone https://github.com/DmytroSadovskyi/nest-app.git
-```
 
-```bash
 $ cd nest-app
-```
 
-```bash
 $ npm install
 ```
 
