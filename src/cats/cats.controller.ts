@@ -35,7 +35,7 @@ export class CatsController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: Types.ObjectId,
+    @Param('id', ParseObjectIdPipe) id: Types.ObjectId,
     @Body() updateCatDto: UpdateCatDto,
   ) {
     return this.catsService.update(id, updateCatDto);
@@ -43,7 +43,7 @@ export class CatsController {
 
   @Delete(':id')
   @HttpCode(204)
-  async remove(@Param('id') id: Types.ObjectId) {
+  async remove(@Param('id', ParseObjectIdPipe) id: Types.ObjectId) {
     return this.catsService.remove(id);
   }
 }

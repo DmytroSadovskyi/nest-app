@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -19,13 +19,19 @@ export class CatsService {
   }
 
   async findOne(id: Types.ObjectId): Promise<Cat> {
-    return this.catModel.findById(id).exec();
+    const cat = await this.catModel.findById(id).exec();
+    if (!cat) {
+      throw new NotFoundException('Cat not found');
+    }
+    return cat;
   }
 
   async update(id: Types.ObjectId, updateCatDto: UpdateCatDto): Promise<Cat> {
-    return this.catModel
-      .findByIdAndUpdate(id, updateCatDto, { new: true })
-      .exec();
+    const cat = await this.catModel.findById(id).exec();
+    if (!cat) {
+      throw new NotFoundException('Cat not found');
+    }
+    return cat.updateOne(updateCatDto).exec();
   }
 
   async remove(id: Types.ObjectId) {
