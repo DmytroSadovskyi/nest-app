@@ -11,6 +11,8 @@ import {
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
+import { ParseObjectIdPipe } from 'src/parseObjectId.pipe';
+import { Types } from 'mongoose';
 
 @Controller('cats')
 export class CatsController {
@@ -27,18 +29,21 @@ export class CatsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseObjectIdPipe) id: Types.ObjectId) {
     return this.catsService.findOne(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
+  async update(
+    @Param('id') id: Types.ObjectId,
+    @Body() updateCatDto: UpdateCatDto,
+  ) {
     return this.catsService.update(id, updateCatDto);
   }
 
   @Delete(':id')
   @HttpCode(204)
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: Types.ObjectId) {
     return this.catsService.remove(id);
   }
 }

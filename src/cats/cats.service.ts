@@ -3,7 +3,7 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cat } from './entities/cat.entity';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class CatsService {
@@ -18,17 +18,17 @@ export class CatsService {
     return this.catModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Cat> {
+  async findOne(id: Types.ObjectId): Promise<Cat> {
     return this.catModel.findById(id).exec();
   }
 
-  async update(id: string, updateCatDto: UpdateCatDto): Promise<Cat> {
+  async update(id: Types.ObjectId, updateCatDto: UpdateCatDto): Promise<Cat> {
     return this.catModel
       .findByIdAndUpdate(id, updateCatDto, { new: true })
       .exec();
   }
 
-  async remove(id: string) {
+  async remove(id: Types.ObjectId) {
     return this.catModel.findByIdAndDelete(id).exec();
   }
 }
