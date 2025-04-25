@@ -14,14 +14,14 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { ParseObjectIdPipe } from 'src/parseObjectId.pipe';
 import { Types } from 'mongoose';
-import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('cats')
-@ApiBearerAuth()
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new cat' })
   @ApiResponse({
     status: 201,
     description: 'The cat has been successfully created.',
@@ -36,6 +36,7 @@ export class CatsController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all cats' })
   @ApiResponse({
     status: 200,
     description: 'List of cats',
@@ -45,6 +46,7 @@ export class CatsController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a cat by ID' })
   @ApiResponse({
     status: 200,
     description: 'The cat has been successfully retrieved.',
@@ -56,6 +58,7 @@ export class CatsController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a cat by ID' })
   @ApiResponse({
     status: 200,
     description: 'The cat has been successfully updated.',
@@ -78,6 +81,7 @@ export class CatsController {
   })
   @ApiResponse({ status: 404, description: 'Not found.' })
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a cat by ID' })
   @HttpCode(204)
   async remove(@Param('id', ParseObjectIdPipe) id: Types.ObjectId) {
     return this.catsService.remove(id);
