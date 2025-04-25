@@ -12,7 +12,7 @@ export class UsersService {
     return createdUser.save();
   }
 
-  findOne({ name, email }): Promise<User | undefined> {
-    return this.userModel.findOne({ name, email }).exec();
+  findOne(query: object): Promise<User | undefined> {
+    return this.userModel.findOne(query).exec();
   }
 }
