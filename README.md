@@ -3,8 +3,8 @@
 This is a simple Nestjs application with a simple CRUD API for managing cats.
 
 ## Swagger docs
- [local:](http://localhost:3000)
- [production:](https://nest-app-iamn.onrender.com/api-docs)
+ [local](http://localhost:3000)
+ [production](https://nest-app-iamn.onrender.com/api-docs)
 
 ## Installation
 
